@@ -30,7 +30,7 @@ class App extends React.Component {
            <div>
 
            <div>
-               <Menu menu={this.state.menu} />
+               <Menu />
            </div>
 
 
@@ -39,7 +39,7 @@ class App extends React.Component {
            </div>
 
            <div>
-               <FooterPage fotter={this.state.fotter}/>
+               <FooterPage />
            </div>
            </div>
 
