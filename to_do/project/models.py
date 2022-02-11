@@ -12,7 +12,7 @@ class Project(models.Model):
 
 
 class ToDo(models.Model):
-    initial_project = models.OneToOneField(Project, on_delete=models.CASCADE)
+    initial_project = models.ForeignKey(Project, on_delete=models.CASCADE)
     note = models.TextField(blank=False, null=False)
     creation_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
