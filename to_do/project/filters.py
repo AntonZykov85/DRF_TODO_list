@@ -16,4 +16,4 @@ class TODOFilter(filters.FilterSet):
 
     class Meta:
         model = ToDo
-        fields = ['name_project', 'date_create']
+        fields = ['initial_project', 'date_create']
