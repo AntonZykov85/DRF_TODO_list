@@ -4,9 +4,20 @@ from .models import User
 from .serializers import UserModelSerializer
 
 
-class UserCustomViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
-                        mixins.UpdateModelMixin, viewsets.GenericViewSet):
+# class UserCustomViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
+#                         mixins.UpdateModelMixin, viewsets.GenericViewSet):
+#
+#     # renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+#     queryset = User.objects.all()
+#     serializer_class = UserModelSerializer
 
-    # renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
-    queryset = User.objects.all()
-    serializer_class = UserModelSerializer
+
+
+from django.shortcuts import render
+from rest_framework.viewsets import ModelViewSet
+from .models import User
+from .serializers import UserModelSerializer
+
+class UserModelViewSet(ModelViewSet):
+   queryset = User.objects.all()
+   serializer_class = UserModelSerializer
