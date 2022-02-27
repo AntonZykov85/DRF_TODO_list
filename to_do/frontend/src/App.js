@@ -62,7 +62,7 @@ class App extends React.Component {
                        <div>
                            <Menu />
                        </div>
-
+                       <maincontent>
                        <Switch>
                            <Route exact path='/' component = {() => <UserList users={this.state.users} />} />
                            <Route exact path='/projects' component = {() =>  <ProjectsList projects={this.state.project} />} />
@@ -70,7 +70,7 @@ class App extends React.Component {
                            <Route component = {NotFound404}/>
 
                        </Switch>
-
+                        </maincontent>
                       </HashRouter>
                </div>
 
