@@ -1,4 +1,5 @@
 from rest_framework import mixins, viewsets
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from .models import User
 from .serializers import UserModelSerializer
@@ -21,3 +22,4 @@ from django.shortcuts import render
 class UserModelViewSet(ModelViewSet):
    queryset = User.objects.all()
    serializer_class = UserModelSerializer
+   permission_classes = [IsAuthenticated]
