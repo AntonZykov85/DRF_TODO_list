@@ -9,57 +9,58 @@ from project.models import Project, ToDo
 from rest_framework import status
 from rest_framework.test import APIRequestFactory,force_authenticate,APIClient,APISimpleTestCase,APITestCase
 from mixer.backend.django import mixer
-from django.contrib.auth.models import User
 
 
 # Create your tests here.
 
-class TestProjects(APITestCase):
+class TestToDo(APITestCase):
 
     def setUp(self) -> None:
-        self.name = 'admin'
+        self.username = 'admin'
+        # self.first_name = ''
+        # self.last_name = ''
         self.password = 'password'
         self.email = 'admin@gmail.com'
 
-        self.data = {'username': 'user', 'first_name': '', 'last_name': '', 'email': 'randommail@gmail.com'}
-        self.data_put = {'username': 'user_1', 'first_name': '', 'last_name': '', 'email': 'randommail_1@gmail.com'}
+        self.data = {'username': 'user', 'first_name': '', 'last_name': '', 'email': 'randommail@gmail.com', 'password' : 'password'}
+        self.data_put = {'username': 'user_1', 'first_name': '', 'last_name': '', 'email': 'randommail_1@gmail.com', 'password' : 'password'}
         self.url = '/api/users/'
-        self.admin = User.objects.create_superuser(self.name, self.email, self.password)
+        self.admin = User.objects.create_superuser(self.username, self.email, self.password)
 
     def test_get_list(self):
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_put_admin(self):
         user = User.objects.create(**self.data)
-        project = Project.objects.create(text='test', user=user)
-        self.client.login(username=self.name,password=self.password)
-        response = self.client.put(f'{self.url}{project.id}/', {'text': 'Project_text', 'user': project.user.id})
+        todo = ToDo.objects.create(note='test', creator=user)
+        self.client.login(username=self.username, password=self.password)
+        response = self.client.put(f'{self.url}{todo.id}/', {'note': 'TO_DO_text', 'user': todo.creator.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
-        project_ =Project.objects.get(id=project.id)
-        self.assertEqual(project_.text, 'Project_text')
+        to_do_ =Project.objects.get(id=todo.id)
+        self.assertEqual(to_do_.note, 'Project_text')
         self.client.logout()
 
     def test_put_mixer(self):
 
-        project = mixer.blend(Biography)
-        self.client.login(username=self.name, password=self.password)
-        response = self.client.put(f'{self.url}{project.id}/', {'text': 'Project_text', 'user': project.user.id})
+        to_do = mixer.blend(ToDo)
+        self.client.login(username=self.username, password=self.password)
+        response = self.client.put(f'{self.url}{to_do.id}/', {'note': 'to_do_text', 'user': to_do.creator.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        project_ = Project.objects.get(id=project.id)
-        self.assertEqual(project_.text, 'Project_text')
+        to_do_ = ToDo.objects.get(id=to_do.id)
+        self.assertEqual(to_do_.note, 'to_do_text')
         self.client.logout()
 
     def test_put_mixer_fields(self):
-        project = mixer.blend(Project,text='Project_text')
-        self.assertEqual(project.text, 'Project_text')
-        self.client.login(username=self.name, password=self.password)
-        response = self.client.put(f'{self.url}{project.id}/', {'text': 'Project_text', 'user': project.user.id})
+        to_do = mixer.blend(ToDo, note='to_do_text')
+        self.assertEqual(to_do.note, 'to_do_text')
+        self.client.login(username=self.username, password=self.password)
+        response = self.client.put(f'{self.url}{to_do.id}/', {'note': 'to_do_text', 'user': to_do.creator.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        project_ = Project.objects.get(id=project.id)
-        self.assertEqual(project_.text, 'Project_text')
+        to_do_ = ToDo.objects.get(id=to_do.id)
+        self.assertEqual(to_do_.note, 'to_do_text')
         self.client.logout()

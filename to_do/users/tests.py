@@ -11,53 +11,57 @@ from project.models import Project,ToDo
 from rest_framework import status
 from rest_framework.test import APIRequestFactory,force_authenticate,APIClient,APISimpleTestCase,APITestCase
 from mixer.backend.django import mixer
-from django.contrib.auth.models import User
 
 
 # Create your tests here.
-class TestAuthorViewSet(TestCase):
+class TestUserViewSet(TestCase):
 
     def setUp(self) -> None:
-        self.name = 'admin'
+        self.username = 'admin'
+        # self.first_name = ''
+        # self.last_name = ''
         self.password = 'password'
         self.email = 'admin@gmail.com'
 
-        self.data = {'username': 'user', 'first_name': '', 'last_name': '', 'email': 'randommail@gmail.com'}
-        self.data_put = {'username': 'user_1', 'first_name': '', 'last_name': '', 'email': 'randommail_1@gmail.com'}
+        self.data = {'username': 'user', 'first_name': '', 'last_name': '', 'email': 'randommail@gmail.com', 'password' : 'password'}
+        self.data_put = {'username': 'user_1', 'first_name': '', 'last_name': '', 'email': 'randommail_1@gmail.com', 'password' : 'password'}
         self.url = '/api/users/'
-        self.admin = User.objects.create_superuser(self.name, self.email, self.password)
+        self.admin = User.objects.create_superuser(self.username, self.email, self.password)
 
     #APIRequestFactory force_authenticate
-    def test_get_list(self):
-        #
-        factory = APIRequestFactory()
-        request = factory.get(self.url)
-        view = UserModelViewSet.as_view({'get': 'list'})
-        response = view(request)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_create_guest(self):
         factory = APIRequestFactory()
-        request = factory.post(self.url, self.data, format='json')
-        view = UserModelViewSet.as_view({'post': 'create'})
+        request = factory.post(self.url,self.data,format='json')
+        view = UserModelViewSet.as_view({'post':'create'})
         response = view(request)
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code,status.HTTP_401_UNAUTHORIZED)
 
     def test_create_admin(self):
         factory = APIRequestFactory()
         request = factory.post(self.url, self.data, format='json')
-        force_authenticate(request, self.admin)
-        view = UserModelViewSet.as_view({'post': 'create'})
+        force_authenticate(request,self.admin)
+        view = UserModelViewSet.as_view({'post':'create'})
         response = view(request)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code,  status.HTTP_201_CREATED)
+
+    # def test_get_list(self):
+    #     #
+    #     factory = APIRequestFactory()
+    #     request = factory.get(self.url)
+    #     view = UserModelViewSet.as_view({'get': 'list'})
+    #     response = view(request)
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
 
 #APIClient
-    def test_get_detail(self):
-
-        client = APIClient()
-        user = User.objects.create(**self.data)
-        response = client.get(f'{self.url}{user.id}/')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+    # def test_get_detail(self):
+    #
+    #     client = APIClient()
+    #     user = User.objects.create(**self.data)
+    #     response = client.get(f'{self.url}{user.id}/')
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_put_guest(self):
         client = APIClient()
@@ -68,7 +72,7 @@ class TestAuthorViewSet(TestCase):
     def test_put_admin(self):
         client = APIClient()
         user = User.objects.create(**self.data)
-        client.login(username=self.name, password=self.password)
+        client.login(username=self.username, password=self.password)
         response = client.put(f'{self.url}{user.id}/', self.data_put)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
