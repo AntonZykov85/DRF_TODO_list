@@ -45,23 +45,6 @@ class TestUserViewSet(TestCase):
         response = view(request)
         self.assertEqual(response.status_code,  status.HTTP_201_CREATED)
 
-    # def test_get_list(self):
-    #     #
-    #     factory = APIRequestFactory()
-    #     request = factory.get(self.url)
-    #     view = UserModelViewSet.as_view({'get': 'list'})
-    #     response = view(request)
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-
-
-#APIClient
-    # def test_get_detail(self):
-    #
-    #     client = APIClient()
-    #     user = User.objects.create(**self.data)
-    #     response = client.get(f'{self.url}{user.id}/')
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_put_guest(self):
         client = APIClient()
