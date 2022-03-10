@@ -6,9 +6,9 @@ class Project(models.Model):
     name = models.CharField(max_length=150, blank=False)
     repo_link = models.URLField()
     users = models.ManyToManyField(User)
-
-    def __str__(self):
-        return f'{self.name}'
+    #
+    # def __str__(self):
+    #     return f'{self.name}'
 
 
 class ToDo(models.Model):

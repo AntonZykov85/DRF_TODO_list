@@ -22,4 +22,4 @@ from django.shortcuts import render
 class UserModelViewSet(ModelViewSet):
    queryset = User.objects.all()
    serializer_class = UserModelSerializer
-   permission_classes = [IsAuthenticated]
+   # permission_classes = [IsAuthenticated]
