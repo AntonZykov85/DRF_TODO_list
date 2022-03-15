@@ -1,13 +1,13 @@
 from rest_framework import generics
-from django.contrib.auth.models import User
-from .serializers import UserApiSerializer, UserApiBaseSerializer
+from users.models import User
+from .serializers import UserApiBaseSerializer, UserApiRoleSerializer
 
 
-class UserListAPIView(generics.ListAPIView):
+class UserAPIView(generics.ListAPIView):
     queryset = User.objects.all()
-    serializer_class = UserApiSerializer
+    serializer_class = UserApiBaseSerializer
 
     def get_serializer_class(self):
         if self.request.version == 'v2':
-            return UserApiBaseSerializer
-        return UserApiSerializer
+            return UserApiRoleSerializer
+        return UserApiBaseSerializer
