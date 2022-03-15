@@ -19,6 +19,21 @@ from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.routers import DefaultRouter
 from users.views import UserModelViewSet
 from project.views import ProjectModelViewSet, ToDoModelViewSet
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework import viewsets, permissions
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title='to_do',
+        default_version='v1',
+        description='Project',
+        contact=openapi.Contact(email='to_do@mail.ru'),
+        license=openapi.License(name='GB License'),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,)
+)
 
 router = DefaultRouter()
 router.register('users', UserModelViewSet),
@@ -30,6 +45,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
-    path('api-token-auth/', obtain_auth_token)
+    path('api-token-auth/', obtain_auth_token),
+    path('swagger/', schema_view.with_ui('swagger')),
+    path('redoc/', schema_view.with_ui('redoc')),
 
 ]
+
+
