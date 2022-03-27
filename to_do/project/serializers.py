@@ -6,13 +6,13 @@ class ProjectModelSerializer(ModelSerializer):
 
     class Meta:
         model = Project
-        # fields = '__all__'
-        fields = ('name', 'repo_link')
+        fields = '__all__'
+        # fields = ('name', 'repo_link')
 
 
 class ToDoModelSerializer(ModelSerializer):
 
     class Meta:
         model = ToDo
-        # fields = '__all__'
-        fields = ('initial_project', 'creator')
+        fields = '__all__'
+        # fields = ('initial_project', 'creator', 'note')

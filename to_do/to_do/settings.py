@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'drf_yasg',
     'user_api',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -164,4 +165,8 @@ REST_FRAMEWORK = {
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning', #не знаю почему, мне этот способ понравился более всего
     # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
     # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.AcceptHeaderVersioning',
+}
+
+GRAPHENE = {
+    'SCHEMA': 'to_do.schema.schema'
 }
