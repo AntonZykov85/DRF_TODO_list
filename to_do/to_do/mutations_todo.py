@@ -37,9 +37,9 @@ class ToDoUpdateMutation(graphene.Mutation):
 class ToDoCreateMutation(graphene.Mutation):
 
     class Arguments:
-        initial_project = graphene.String(required=True)
+        initial_project = graphene.ID()
         note = graphene.String(required=True)
-        creator = graphene.String(required=True)
+        creator = graphene.ID()
 
     to_do = graphene.Field(ToDoType)
 
