@@ -11,8 +11,17 @@ class ProjectModelSerializer(ModelSerializer):
 
 
 class ToDoModelSerializer(ModelSerializer):
+    initial_project = serializers.CharField()
+    creation_date = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
+    update_date = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
+    creator = serializers.CharField()
+    # content_creator = serializers.CharField()
+
 
     class Meta:
         model = ToDo
         fields = '__all__'
         # fields = ('initial_project', 'creator', 'note')
+
+    # def __str__(self):
+    #     return self.content_creator

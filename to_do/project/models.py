@@ -16,6 +16,6 @@ class ToDo(models.Model):
     note = models.TextField(blank=False, null=False)
     creation_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     field_is_active = models.BooleanField(default=True)
 
