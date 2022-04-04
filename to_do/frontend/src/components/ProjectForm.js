@@ -13,12 +13,12 @@ class ProjectForm extends React.Component {
             })
             return;
         }
-        let users = []
+        let users_list = []
         for (let i = 0; i < event.target.selectedOptions.length; i++) {
-            users.push(event.target.selectedOptions.item(i).value)
+            users_list.push(event.target.selectedOptions.item(i).value)
         }
         this.setState({
-            'user': users
+            'user': users_list
         })
     }
 
@@ -57,8 +57,8 @@ class ProjectForm extends React.Component {
                 <div>
                     <div className="form-group">
                         <label htmlFor="user">Список пользователей</label>
-                        <select className="select" name="users" multiple onChange={(event) => this.handleProjectChange(event)}>
-                            {this.props.users.map((item) => <option value={item.id}> {item.first_name}</option>)}
+                        <select className="select" name="user" multiple onChange={(event) => this.handleProjectChange(event)}>
+                            {this.props.users.map((item) => <option value={item.id}> {item.username}</option>)}
 
                         </select>
                     </div>
