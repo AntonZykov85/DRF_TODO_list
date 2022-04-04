@@ -37,6 +37,7 @@ class TODOForm extends React.Component {
                     <input type="text" className="form-control" name="note"
                            onChange={(event) => this.handleChange(event)}/>
                 </div>
+
                 <div className="form-group">
                     <label for="creator">Создатель</label>
                     <input type="number" className="form-control" name="creator"

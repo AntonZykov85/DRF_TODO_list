@@ -9,7 +9,7 @@ class ProjectForm extends React.Component {
     handleProjectChange(event) {
         if (!event.target.selectedOptions) {
             this.setState({
-                'user': []
+                'users': []
             })
             return;
         }
@@ -18,7 +18,7 @@ class ProjectForm extends React.Component {
             users_list.push(event.target.selectedOptions.item(i).value)
         }
         this.setState({
-            'user': users_list
+            'users': users_list
         })
     }
 
