@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from rest_framework import viewsets, mixins, status
@@ -23,12 +25,18 @@ class ToDoModelViewSet(ModelViewSet):
     queryset = ToDo.objects.all()
     serializer_class = ToDoModelSerializer
 
-    def destroy(self, request, *args, **kwargs):
-        try:
-            instance = self.get_object()
-            instance.is_active = False
-            instance.save()
-        except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        else:
-            return Response(status=status.HTTP_204_NO_CONTENT)
+    # @login_required
+    # def destroy(self, request, *args, **kwargs):
+    #     try:
+    #         instance = self.get_object()
+    #         instance.is_active = False
+    #         instance.save()
+    #     except:
+    #         return Response(status=status.HTTP_404_NOT_FOUND)
+    #     else:
+    #         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @login_required
+    def ToDo_remove(request, ToDo_id):
+        ToDo.objects.get(id=ToDo_id).delete()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

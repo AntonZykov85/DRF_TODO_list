@@ -28,18 +28,18 @@ class TODOForm extends React.Component {
         return (
             <form onSubmit={(event) => this.handleSubmit(event)}>
                 <div className="form-group">
-                    <label for="login">Название проекта</label>
+                    <label for="login">Наименование проекта</label>
                     <input type="text" className="form-control" name="initial_project"
                            onChange={(event) => this.handleChange(event)}/>
                 </div>
                 <div className="form-group">
-                    <label for="text">Содержание</label>
+                    <label for="text">Текст задания</label>
                     <input type="text" className="form-control" name="note"
                            onChange={(event) => this.handleChange(event)}/>
                 </div>
 
                 <div className="form-group">
-                    <label for="creator">Создатель</label>
+                    <label for="creator">Создатель проекта</label>
                     <input type="number" className="form-control" name="creator"
                            onChange={(event) => this.handleChange(event)}/>
                 </div>
