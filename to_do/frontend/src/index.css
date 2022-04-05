@@ -1,0 +1,33 @@
+maincontent {
+  padding-top: 250px;
+  margin-top: 200px;
+  /*clear:both;*/
+}
+
+fotter {
+  background: antiquewhite;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 5%;
+}
+
+nav {
+  background: antiquewhite;
+  text-align: center;
+  position: absolute;
+  margin-top: 20px;
+  padding: 10px;
+  width: 100%;
+  height: 10px;
+
+}
+
+select {
+    position: center;
+    width: 1110px;
+    height: 60px;
+    margin:auto;
+    /*background-color: #1c7430;*/
+}
