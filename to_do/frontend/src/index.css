@@ -23,3 +23,11 @@ nav {
   height: 10px;
 
 }
+
+select {
+    position: center;
+    width: 1110px;
+    height: 60px;
+    margin:auto;
+    /*background-color: #1c7430;*/
+}

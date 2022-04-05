@@ -6,6 +6,23 @@ class TODOForm extends React.Component {
         this.state = {initial_project: '', note: '', creator: ''}
     }
 
+    //  handleTODOChange(event) {
+    //     if (!event.target.selectedOptions) {
+    //         this.setState({
+    //             'initial_project': []
+    //         })
+    //         return;
+    //     }
+    //     let initial_project_list = []
+    //     for (let i = 0; i < event.target.selectedOptions.length; i++) {
+    //         initial_project_list.push(event.target.selectedOptions.item(i).value)
+    //     }
+    //     this.setState({
+    //         'initial_project': initial_project_list
+    //     })
+    // }
+
+
     handleChange(event) {
         this.setState(
             {
@@ -27,13 +44,26 @@ class TODOForm extends React.Component {
     render() {
         return (
             <form onSubmit={(event) => this.handleSubmit(event)}>
+                {/*<div>*/}
+                {/*        <div className="form-group">*/}
+                {/*            <label htmlFor="initial_project">Список проектов</label>*/}
+                {/*                <select className="select" name="initial_project" multiple onChange={(event) => this.handleTODOChange(event)}>*/}
+                {/*                    {this.props.to_do.map((item) => <option value={item.id}> {item.creator}</option>)}*/}
+
+                {/*                </select>*/}
+                {/*        </div>*/}
+                {/*</div>*/}
+
+
                 <div className="form-group">
-                    <label for="login">Наименование проекта</label>
+                    <label htmlFor="login">Введите id проекта</label>
                     <input type="text" className="form-control" name="initial_project"
                            onChange={(event) => this.handleChange(event)}/>
                 </div>
+
+
                 <div className="form-group">
-                    <label for="text">Текст задания</label>
+                    <label for="text">Содержание проекта</label>
                     <input type="text" className="form-control" name="note"
                            onChange={(event) => this.handleChange(event)}/>
                 </div>

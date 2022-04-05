@@ -28,34 +28,6 @@ class App extends React.Component {
            'token': '',
        }
    }
-    load_data() {
-        const headers = this.get_headers()
-        console.log(this.get_headers())
-
-        axios.get('http://127.0.0.1:8000/api/users/', {headers})
-            .then(response => {
-                this.setState({users: response.data})
-            }).catch(error => {
-            console.log(error)
-            this.setState({'users': []})
-        })
-
-        axios.get('http://127.0.0.1:8000/api/project/', {headers})
-            .then(response => {
-                this.setState({project: response.data})
-            }).catch(error => {
-            console.log(error)
-            this.setState({'project': []})
-        })
-
-        axios.get('http://127.0.0.1:8000/api/to_do/')
-            .then(response => {
-                this.setState({to_do: response.data})
-            }).catch(error => {
-            console.log(error)
-            this.setState({'to_do': []})
-        })
-    }
 
 
     deleteProject(id) {
@@ -85,16 +57,25 @@ class App extends React.Component {
     }
 
 
-    createProject(name, repo_link, users) {
+    createProject(name, repo_link, user) {
         const headers = this.get_headers()
-        const data = {name: name, repo_link: repo_link, users: users}
+        const data = {name: name, repo_link: repo_link, users_list: user}
         axios.post('http://127.0.0.1:8000/api/project/', data, {headers}).then(
+
             response => {
+
+            //     let new_project = response.data
+            //     const user = this.state.users.filter((item) => item.id === new_project.user) [0]
+            //     new_project.user = user
+            //     this.setState({project: [...this.state.project, new_project]})
+            // }).catch(error => {
+            //  console.log(error)})}
+
                 this.load_data()
             }
         ).catch(error => {
             console.log(error)
-            this.setState({projects: []})
+            this.setState({project: []})
 
         })
 
@@ -109,7 +90,7 @@ class App extends React.Component {
             }
         ).catch(error => {
             console.log(error)
-            this.setState({todos: []})
+            this.setState({to_do: []})
 
         })
 
@@ -164,7 +145,34 @@ class App extends React.Component {
         return headers
     }
 
+    load_data() {
+        const headers = this.get_headers()
+        console.log(this.get_headers())
 
+        axios.get('http://127.0.0.1:8000/api/users/', {headers})
+            .then(response => {
+                this.setState({'users': response.data})
+            }).catch(error => {
+            console.log(error)
+            this.setState({'users': []})
+        })
+
+        axios.get('http://127.0.0.1:8000/api/project/', {headers})
+            .then(response => {
+                this.setState({'project': response.data})
+            }).catch(error => {
+            console.log(error)
+            this.setState({'project': []})
+        })
+
+        axios.get('http://127.0.0.1:8000/api/to_do/')
+            .then(response => {
+                this.setState({'to_do': response.data})
+            }).catch(error => {
+            console.log(error)
+            this.setState({'to_do': []})
+        })
+    }
 
 
     componentDidMount() {
@@ -200,19 +208,19 @@ class App extends React.Component {
                                 <Route exact path='/project' component={() => <ProjectsList projects={this.state.project} auth={this.is_authenticated()}
                                                                               deleteProject={(id)=> this.deleteProject(id)}/>}/>
 
-                                <Route exact path='/projects/create'> <ProjectForm users={this.state.project}
-                                                                                   createProject={(name, repo_link, users) => this.createProject(name, repo_link, users)}/></Route>
-
-
-                                <Route exact path='/todos/create'> <TODOForm todos={this.state.to_do}
-                                                                             createTODO={(initial_project, note, creator) => this.createTODO(initial_project, note, creator)}/></Route>
-
                                 <Route exact path='/ToDo' component = {() =>  <ToDoList ToDos={this.state.to_do} auth={this.is_authenticated()}
                                                                                                deleteTODO={(id) => this.deleteTODO(id)}/>}/>
 
 
-                                <Route exact path='/login'> <LoginForm get_token={(username,
-                                       password) => this.get_token(username, password)}/> </Route>
+                                <Route exact path='/projects/create'> <ProjectForm users_list={this.state.users}
+                                                                                   createProject={(name, repo_link, user) => this.createProject(name, repo_link, user)}/></Route>
+
+
+                                <Route exact path='/todos/create'> <TODOForm to_do={this.state.to_do}
+                                                                             createTODO={(initial_project, note, creator) => this.createTODO(initial_project, note, creator)}/></Route>
+
+
+                                <Route exact path='/login'> <LoginForm get_token={(username, password) => this.get_token(username, password)}/> </Route>
 
                                 <Route component={NotFound404}/>
                             </Switch>

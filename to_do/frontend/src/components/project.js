@@ -13,7 +13,7 @@ const ProjectItem = ({project, deleteProject}) => {
            </td>
 
            <td>
-               {project.users}
+               {project.users_list}
            </td>
 
            <td>
