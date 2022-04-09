@@ -36,7 +36,7 @@ class ToDoModelViewSet(ModelViewSet):
     #     else:
     #         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    @login_required
-    def ToDo_remove(request, ToDo_id):
-        ToDo.objects.get(id=ToDo_id).delete()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    # @login_required
+    # def ToDo_remove(request, ToDo_id):
+    #     ToDo.objects.get(id=ToDo_id).delete()
+    #     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

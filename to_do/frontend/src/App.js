@@ -57,6 +57,19 @@ class App extends React.Component {
     }
 
 
+    deleteUser(id) {
+        const headers = this.get_headers()
+        axios.delete(`http://127.0.0.1:8000/api/users/${id}`, {headers}).then(
+            response => {
+                this.load_data()
+            }
+        ).catch(error => {
+            console.log(error)
+            this.setState({users: []})
+        })
+    }
+
+
     createProject(name, repo_link, user) {
         const headers = this.get_headers()
         const data = {name: name, repo_link: repo_link, users_list: user}
@@ -202,7 +215,8 @@ class App extends React.Component {
                     <main role="main" class="flex-shrink-0">
                         <div className="container">
                             <Switch>
-                                <Route exact path='/' component={() => <UserList users={this.state.users}/>}/>
+                                <Route exact path='/' component={() => <UserList users={this.state.users} auth={this.is_authenticated()}
+                                                                              deleteUser={(id)=> this.deleteUser(id)}/>}/>
 
 
                                 <Route exact path='/project' component={() => <ProjectsList projects={this.state.project} auth={this.is_authenticated()}

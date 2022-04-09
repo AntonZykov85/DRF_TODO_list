@@ -34,9 +34,11 @@ const ToDoList = ({ToDos, deleteTODO}) => {
                <th>
                    Initial project
                </th>
+
                <th>
                    Note
                </th>
+
                <th>
                    Creation date
                </th>
@@ -44,6 +46,7 @@ const ToDoList = ({ToDos, deleteTODO}) => {
                <th>
                    Update date
                </th>
+
                <th>
                    Creator
                </th>

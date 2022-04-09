@@ -3,24 +3,24 @@ import React from "react";
 class TODOForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {initial_project: '', note: '', creator: ''}
+        this.state = {initial_project: [], note: '', creator: ''}
     }
 
-    //  handleTODOChange(event) {
-    //     if (!event.target.selectedOptions) {
-    //         this.setState({
-    //             'initial_project': []
-    //         })
-    //         return;
-    //     }
-    //     let initial_project_list = []
-    //     for (let i = 0; i < event.target.selectedOptions.length; i++) {
-    //         initial_project_list.push(event.target.selectedOptions.item(i).value)
-    //     }
-    //     this.setState({
-    //         'initial_project': initial_project_list
-    //     })
-    // }
+     handleTODOChange(event) {
+        if (!event.target.selectedOptions) {
+            this.setState({
+                'project': []
+            })
+            return;
+        }
+        let projects = []
+        for (let i = 0; i < event.target.selectedOptions.length; i++) {
+            projects.push(event.target.selectedOptions.item(i).value)
+        }
+        this.setState({
+            'project': projects
+        })
+    }
 
 
     handleChange(event) {
@@ -44,22 +44,22 @@ class TODOForm extends React.Component {
     render() {
         return (
             <form onSubmit={(event) => this.handleSubmit(event)}>
-                {/*<div>*/}
-                {/*        <div className="form-group">*/}
-                {/*            <label htmlFor="initial_project">Список проектов</label>*/}
-                {/*                <select className="select" name="initial_project" multiple onChange={(event) => this.handleTODOChange(event)}>*/}
-                {/*                    {this.props.to_do.map((item) => <option value={item.id}> {item.creator}</option>)}*/}
+                <div>
+                        <div className="form-group">
+                            <label htmlFor="project">Список проектов</label>
+                                <select className="select" name="project" multiple onChange={(event) => this.handleTODOChange(event)}>
+                                    {this.props.to_do.map((item) => <option value={item.id}> {item.initial_project}</option>)}
 
-                {/*                </select>*/}
-                {/*        </div>*/}
-                {/*</div>*/}
-
-
-                <div className="form-group">
-                    <label htmlFor="login">Введите id проекта</label>
-                    <input type="text" className="form-control" name="initial_project"
-                           onChange={(event) => this.handleChange(event)}/>
+                                </select>
+                        </div>
                 </div>
+
+
+                {/*<div className="form-group">*/}
+                {/*    <label htmlFor="login">Введите id проекта</label>*/}
+                {/*    <input type="text" className="form-control" name="initial_project"*/}
+                {/*           onChange={(event) => this.handleChange(event)}/>*/}
+                {/*</div>*/}
 
 
                 <div className="form-group">
